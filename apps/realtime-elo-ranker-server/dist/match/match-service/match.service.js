@@ -28,13 +28,13 @@ let MatchService = class MatchService {
         let loser = null;
         if (!matchDto.draw) {
             if (!matchDto.winner || !matchDto.loser) {
-                console.error('❌ Erreur: winnerId et loserId sont null.');
+                console.error(' Erreur: winnerId et loserId sont null.');
                 throw new Error('winnerId et loserId ne peuvent pas être null.');
             }
             winner = await this.playerRepository.findOne({ where: { id: matchDto.winner } });
             loser = await this.playerRepository.findOne({ where: { id: matchDto.loser } });
             if (!winner || !loser) {
-                console.error('❌ Erreur: Joueur introuvable.', { winner, loser });
+                console.error(' Erreur: Joueur introuvable.', { winner, loser });
                 throw new Error('Un ou plusieurs joueurs introuvables.');
             }
             const K = 32;

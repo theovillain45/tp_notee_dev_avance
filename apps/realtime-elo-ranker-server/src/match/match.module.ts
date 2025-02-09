@@ -8,10 +8,10 @@ import { EventGateway } from '../events/event.gateway';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Player, Match]), // ✅ Ajout de Player ici
+    TypeOrmModule.forFeature([Player, Match]), // Ajout de Player ici
   ],
   controllers: [MatchController],
   providers: [MatchService, EventGateway],
-  exports: [MatchService], // ✅ Si un autre module a besoin de MatchService
+  exports: [MatchService], // Si un autre module a besoin de MatchService
 })
 export class MatchModule {}

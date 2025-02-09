@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PlayerService } from '../../player/player-service/player.service';
 import { Observable } from 'rxjs';
-import { RankingEventDto } from '../dto/ranking-event.dto'; // ✅ Utilisation du DTO au lieu de l'interface
+import { RankingEventDto } from '../dto/ranking-event.dto'; // Utilisation du DTO au lieu de l'interface
 import { EventGateway } from '../../events/event.gateway';
 import { Player } from '../../player/entity/player.entity';
 
@@ -13,7 +13,7 @@ export class RankingService {
   ) {}
 
   /**
-   * 🔍 Retourne le classement trié par Elo (du plus fort au plus faible)
+   * Retourne le classement trié par Elo (du plus fort au plus faible)
    */
   async getRanking(): Promise<Player[]> {
     return (await this.playerService.getPlayers()).sort(
@@ -22,7 +22,7 @@ export class RankingService {
   }
 
   /**
-   * 👂 Souscrit aux mises à jour du classement en SSE
+   * Souscrit aux mises à jour du classement en SSE
    */
   subscribeToRankingUpdates(): Observable<RankingEventDto> {
     console.log("👂 Souscription aux mises à jour du classement...");

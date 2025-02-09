@@ -29,8 +29,8 @@ let PlayerService = class PlayerService {
             rank: playerDto.rank ?? (await this.calculateAverageElo()),
         });
         const savedPlayer = await this.playerRepository.save(newPlayer);
-        console.log('🔥 Joueur créé :', savedPlayer);
-        console.log('📢 Envoi de mise à jour du classement...');
+        console.log('Joueur créé :', savedPlayer);
+        console.log('Envoi de mise à jour du classement...');
         this.eventGateway.emitRankingUpdate({
             type: 'RankingUpdate',
             player: { id: savedPlayer.id, rank: savedPlayer.rank },

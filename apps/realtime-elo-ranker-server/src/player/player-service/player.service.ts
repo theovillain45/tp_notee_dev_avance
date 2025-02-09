@@ -9,7 +9,7 @@ import { EventGateway } from '../../events/event.gateway';
 export class PlayerService {
   constructor(
     @InjectRepository(Player)
-    private readonly playerRepository: Repository<Player>, // ✅ Gestion via TypeORM
+    private readonly playerRepository: Repository<Player>, // Gestion via TypeORM
     private readonly eventGateway: EventGateway,
   ) {}
 
@@ -24,8 +24,8 @@ export class PlayerService {
 
     const savedPlayer = await this.playerRepository.save(newPlayer);
 
-    console.log('🔥 Joueur créé :', savedPlayer);
-    console.log('📢 Envoi de mise à jour du classement...');
+    console.log('Joueur créé :', savedPlayer);
+    console.log('Envoi de mise à jour du classement...');
 
     // Émettre un événement SSE avec le bon format
     this.eventGateway.emitRankingUpdate({
@@ -44,7 +44,7 @@ export class PlayerService {
   }
 
   /**
-   * ✅ Calculer le score Elo moyen des joueurs en base
+   * Calculer le score Elo moyen des joueurs en base
    */
   private async calculateAverageElo(): Promise<number> {
     const players = await this.getPlayers();

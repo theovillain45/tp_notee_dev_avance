@@ -10,13 +10,13 @@ import { Observable } from 'rxjs';
 export class MatchService {
   constructor(
     @InjectRepository(Player)
-    private readonly playerRepository: Repository<Player>, // ✅ On garde uniquement les joueurs en base
+    private readonly playerRepository: Repository<Player>, //  On garde uniquement les joueurs en base
 
     private readonly eventGateway: EventGateway,
   ) {}
 
   /**
-   * ✅ Traite le résultat d'un match et met à jour le classement
+   *  Traite le résultat d'un match et met à jour le classement
    */
   async processMatchResult(matchDto: MatchDto): Promise<Player[]> {
     let winner: Player | null = null;
@@ -24,7 +24,7 @@ export class MatchService {
   
     if (!matchDto.draw) {
       if (!matchDto.winner || !matchDto.loser) {
-        console.error('❌ Erreur: winnerId et loserId sont null.');
+        console.error(' Erreur: winnerId et loserId sont null.');
         throw new Error('winnerId et loserId ne peuvent pas être null.');
       }
   
@@ -32,11 +32,11 @@ export class MatchService {
       loser = await this.playerRepository.findOne({ where: { id: matchDto.loser } });
   
       if (!winner || !loser) {
-        console.error('❌ Erreur: Joueur introuvable.', { winner, loser });
+        console.error(' Erreur: Joueur introuvable.', { winner, loser });
         throw new Error('Un ou plusieurs joueurs introuvables.');
       }
   
-      // ✅ Calcul du classement Elo
+      //  Calcul du classement Elo
       const K = 32;
       const expectedScore1 = 1 / (1 + Math.pow(10, (loser.rank - winner.rank) / 400));
       const expectedScore2 = 1 / (1 + Math.pow(10, (winner.rank - loser.rank) / 400));
@@ -52,7 +52,7 @@ export class MatchService {
   
     console.log("📡 Mise à jour des joueurs :", updatedPlayers);
   
-    // 🔥 Envoyer `updatedPlayers` une seule fois au `EventGateway`
+    // Envoyer `updatedPlayers` une seule fois au `EventGateway`
     this.eventGateway.emitRankingUpdate({ updatedPlayers });
   
     return updatedPlayers;
@@ -61,7 +61,7 @@ export class MatchService {
   
 
   /**
-   * 📡 Écoute les mises à jour du classement en temps réel
+   *  Écoute les mises à jour du classement en temps réel
    */
   onRankingUpdate(): Observable<any> {
     return this.eventGateway.onRankingUpdate();

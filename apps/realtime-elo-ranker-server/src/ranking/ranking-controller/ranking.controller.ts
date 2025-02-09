@@ -17,7 +17,7 @@ export class RankingController {
   rankingUpdates(): Observable<any> {
     console.log('📡 Un client SSE s\'est connecté aux mises à jour du classement.');
     return this.rankingService.subscribeToRankingUpdates().pipe(
-      map((event) => ({ data: event })) // ✅ Convertir pour SSE
+      map((event) => ({ data: event })) // Convertir pour SSE
     );
   }
 }
